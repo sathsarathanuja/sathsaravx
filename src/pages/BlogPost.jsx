@@ -1,0 +1,16 @@
+import { ArrowLeft, ArrowRight, CalendarDays, Clock3, ExternalLink, FileText } from 'lucide-react'
+import { Link, useParams } from 'react-router-dom'
+import SectionReveal from '../components/SectionReveal'
+import { blogPosts, isRealLink } from '../data/portfolioData'
+
+export default function BlogPost() {
+  const { id } = useParams()
+  const index = blogPosts.findIndex((item) => String(item.id) === id)
+  const post = blogPosts[index]
+
+  if (!post) return <SectionReveal><section className="blog-not-found"><p className="section-kicker">Writing / 404</p><h1>Article not found</h1><p>The note you are looking for is not available.</p><Link to="/blog" className="section-link"><ArrowLeft size={15} /> Back to writing</Link></section></SectionReveal>
+
+  const previous = blogPosts[index - 1]
+  const next = blogPosts[index + 1]
+  return <div className="blog-post-page space-y-8"><SectionReveal><header className="blog-post-header"><Link to="/blog" className="blog-back-link"><ArrowLeft size={15} /> All writing</Link><div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent"><span>{post.category}</span><span className="text-faint">/</span><span className="flex items-center gap-1 text-subtle"><CalendarDays size={13} /> {post.date}</span><span className="flex items-center gap-1 text-subtle"><Clock3 size={13} /> {post.readTime}</span></div><h1 className="mt-5 max-w-4xl text-3xl font-semibold leading-tight text-fg sm:text-5xl">{post.title}</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-muted">{post.excerpt}</p><div className="mt-7 flex items-center gap-3 text-sm text-subtle"><span className="grid h-8 w-8 place-items-center rounded-full bg-accent-soft-strong text-accent">TS</span><span>Thanuja Sathsara · Engineering notes</span></div></header></SectionReveal><SectionReveal><div className="blog-post-cover"><img src={post.cover} alt="" /><div><FileText size={15} /> Reading note / {String(index + 1).padStart(2, '0')}</div></div></SectionReveal><SectionReveal><main className="blog-post-layout"><article className="blog-post-content">{post.content.split('\n\n').filter(Boolean).map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}<div className="blog-post-source"><span>Originally published as an engineering note.</span>{isRealLink(post.url) && <a href={post.url} target="_blank" rel="noopener noreferrer">Open source article <ExternalLink size={14} /></a>}</div></article><aside className="blog-post-aside"><p className="section-kicker">In this note</p><p className="mt-3 text-sm leading-6 text-muted">A practical perspective on {post.category.toLowerCase()}, with emphasis on decisions that remain useful as a system grows.</p><Link to="/contact" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent">Discuss an idea <ArrowRight size={15} /></Link></aside></main></SectionReveal><SectionReveal><nav className="blog-post-nav" aria-label="Article navigation"><div>{previous && <Link to={`/blog/${previous.id}`}><span>Previous note</span><strong>{previous.title}</strong></Link>}</div><div className="text-right">{next && <Link to={`/blog/${next.id}`}><span>Next note</span><strong>{next.title}</strong></Link>}</div></nav></SectionReveal></div>
+}

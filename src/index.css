@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+/* Tailwind v4 ignores darkMode in tailwind.config.js; drive dark: from the .dark class set by ThemeToggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Color tokens. Every color in the site comes from here, so a theme is just a
+ * different set of values. Components use them as Tailwind classes
+ * (text-fg, bg-surface, border-line, text-accent ...) or as var(--token) in App.css.
+ */
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --fg-soft: #334155;
+  --muted: #64748b;
+  --subtle: #64748b;
+  --faint: #94a3b8;
+
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-raised: rgba(255, 255, 255, 0.97);
+  --header-bg: rgba(248, 250, 252, 0.9);
+  --input-bg: #ffffff;
+  --hero-bg: #ffffff;
+  --grid-line: rgba(15, 23, 42, 0.06);
+
+  --line: rgba(148, 163, 184, 0.24);
+  --line-strong: rgba(148, 163, 184, 0.42);
+
+  --accent: #2563eb;
+  --accent-fg: #1d4ed8;
+  --accent-solid: #2563eb;
+  --accent-solid-hover: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.07);
+  --accent-soft-strong: rgba(37, 99, 235, 0.12);
+  --accent-line: rgba(37, 99, 235, 0.22);
+
+  --success: #059669;
+  --warning: #d97706;
+  --warning-fg: #92400e;
+  --warning-soft: rgba(245, 158, 11, 0.08);
+  --warning-line: rgba(217, 119, 6, 0.24);
+  --danger: #e11d48;
+
+  --shadow: rgba(15, 23, 42, 0.08);
+
+  color-scheme: light;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--foreground);
+  background-color: var(--background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --background: #050505;
+  --foreground: #f5f5f0;
+  --fg-soft: #d4d4d8;
+  --muted: #a1a1aa;
+  --subtle: #71717a;
+  --faint: #52525b;
+
+  --surface: rgba(9, 9, 11, 0.7);
+  --surface-2: rgba(255, 255, 255, 0.05);
+  --surface-raised: #121214;
+  --header-bg: rgba(9, 9, 11, 0.88);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --hero-bg: #10151d;
+  --grid-line: rgba(255, 255, 255, 0.06);
+
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.2);
+
+  --accent: #60a5fa;
+  --accent-fg: #bfdbfe;
+  --accent-solid: #2563eb;
+  --accent-solid-hover: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.1);
+  --accent-soft-strong: rgba(59, 130, 246, 0.16);
+  --accent-line: rgba(96, 165, 250, 0.22);
+
+  --success: #34d399;
+  --warning: #fcd34d;
+  --warning-fg: #fde68a;
+  --warning-soft: rgba(252, 211, 77, 0.05);
+  --warning-line: rgba(252, 211, 77, 0.15);
+  --danger: #fb7185;
+
+  --shadow: rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-fg: var(--foreground);
+  --color-fg-soft: var(--fg-soft);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-faint: var(--faint);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-hover: var(--accent-solid-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-strong: var(--accent-soft-strong);
+  --color-accent-line: var(--accent-line);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-warning-fg: var(--warning-fg);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-line: var(--warning-line);
+  --color-danger: var(--danger);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+* { box-sizing: border-box; }
+
+#root {
+  min-height: 100vh;
+}
+
+button, input, textarea {
+  font: inherit;
+}
+
+::selection {
+  background: var(--accent-solid);
+  color: #ffffff;
+}

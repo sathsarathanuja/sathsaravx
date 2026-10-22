@@ -1,0 +1,106 @@
+import { Activity, Boxes, Cloud, Code2, Database, Gauge, Network, ShieldCheck, TestTube2 } from 'lucide-react'
+
+export const engineeringTopics = [
+  {
+    slug: 'system-design', title: 'System Design', category: 'Foundations', icon: Network,
+    description: 'Shape a system around user journeys, constraints, and failure modes before choosing infrastructure.',
+    takeaway: 'Start with the smallest design that can meet the real requirement.',
+    context: 'A fictional learning platform needs to support course discovery, progress tracking, and scheduled notifications for a growing student audience.',
+    decisions: ['Separate read-heavy course discovery from progress writes', 'Use asynchronous jobs for notifications and report generation', 'Make each critical workflow observable with latency and error metrics'],
+    tradeoffs: 'A modular monolith is the pragmatic first step here. It keeps deployments and local development simple while leaving clear boundaries for future extraction.',
+    metrics: [['P95 latency', '< 350ms'], ['Availability target', '99.9%'], ['Primary users', '25k / month']],
+  },
+  {
+    slug: 'architecture', title: 'Architecture', category: 'Foundations', icon: Boxes,
+    description: 'Keep boundaries understandable, dependencies intentional, and changes local wherever possible.',
+    takeaway: 'Good architecture makes the next change easier to predict.',
+    context: 'A small product team is consolidating several features into one maintainable application without losing delivery speed.',
+    decisions: ['Organize modules around business capabilities', 'Keep external services behind small adapters', 'Document decisions close to the code they affect'],
+    tradeoffs: 'The team chooses explicit modules over premature microservices. Operational simplicity matters more than theoretical independence at this stage.',
+    metrics: [['Deploy unit', '1 app'], ['Core modules', '6'], ['Target handoff', '< 1 day']],
+  },
+  {
+    slug: 'api-design', title: 'API Design', category: 'Delivery', icon: Activity,
+    description: 'Build predictable contracts with validation at the edge and errors that help clients recover.',
+    takeaway: 'An API is a product surface, not merely a transport layer.',
+    context: 'A dashboard needs a stable API for filtering, pagination, permissions, and future mobile clients.',
+    decisions: ['Use resource-oriented endpoints and cursor pagination', 'Return consistent error codes and field-level validation', 'Version breaking changes instead of silently changing behavior'],
+    tradeoffs: 'The API accepts slightly more explicit request data in exchange for safer client behavior and easier documentation.',
+    metrics: [['Documented endpoints', '32'], ['Error format', '1 standard'], ['Page size', '25 items']],
+  },
+  {
+    slug: 'database-design', title: 'Database Design', category: 'Foundations', icon: Database,
+    description: 'Model ownership and relationships clearly, then make common queries easy to explain and measure.',
+    takeaway: 'Optimize the model for integrity first, then optimize proven hot paths.',
+    context: 'A multi-tenant workspace stores users, teams, projects, tasks, and an audit history of important changes.',
+    decisions: ['Use tenant-aware foreign keys on every owned record', 'Index the queries behind the main workspace views', 'Keep audit events append-only for traceability'],
+    tradeoffs: 'A relational model is preferred over a document store because relationships, constraints, and reporting are central to the product.',
+    metrics: [['Query budget', '< 100ms'], ['Audit retention', '12 months'], ['Tenant isolation', 'Required']],
+  },
+  {
+    slug: 'security', title: 'Security', category: 'Trust', icon: ShieldCheck,
+    description: 'Treat authentication, authorization, validation, secrets, and least privilege as product requirements.',
+    takeaway: 'Security controls should be visible in the design, not added at the finish line.',
+    context: 'A client portal handles account data and internal documents shared across teams with different permissions.',
+    decisions: ['Enforce authorization at the service boundary', 'Store secrets outside source control and rotate them', 'Log sensitive actions without logging sensitive values'],
+    tradeoffs: 'A little friction in privileged workflows is accepted when it creates a clear, auditable boundary around high-impact actions.',
+    metrics: [['Session expiry', '30 min'], ['Audit events', 'All writes'], ['Secrets', 'Managed']],
+  },
+  {
+    slug: 'performance', title: 'Performance', category: 'Delivery', icon: Gauge,
+    description: 'Measure real journeys before optimizing, then protect slow dependencies from cascading failure.',
+    takeaway: 'Performance work is strongest when it starts with a user-visible budget.',
+    context: 'A media-heavy portfolio is loading slowly on mobile connections even though the server response is acceptable.',
+    decisions: ['Prioritize above-the-fold assets and lazy-load the rest', 'Compress responsive images and avoid layout shifts', 'Track navigation timing on representative devices'],
+    tradeoffs: 'The first release favors fewer visual effects and faster content access; polish can return after the experience is healthy.',
+    metrics: [['LCP target', '< 2.5s'], ['Mobile bundle', '< 180kb'], ['CLS target', '< 0.1']],
+  },
+  {
+    slug: 'testing', title: 'Testing', category: 'Quality', icon: TestTube2,
+    description: 'Use the right confidence level for each change: focused unit tests, integration checks, and a few user flows.',
+    takeaway: 'A useful test suite protects decisions, not implementation trivia.',
+    context: 'A checkout flow has several payment states and a history of regressions caused by edge cases.',
+    decisions: ['Unit-test pricing and validation rules', 'Exercise payment adapters with integration tests', 'Cover the happy path and failure recovery end to end'],
+    tradeoffs: 'The suite intentionally avoids duplicating every lower-level test at the browser layer, keeping feedback fast and failures meaningful.',
+    metrics: [['Critical flows', '5'], ['CI target', '< 6 min'], ['Flaky tests', '0 tolerated']],
+  },
+  {
+    slug: 'programming', title: 'Programming', category: 'Foundations', icon: Code2,
+    description: 'Use clear abstractions, useful names, and language fundamentals to make behavior easier to reason about.',
+    takeaway: 'Readable code is a design decision that compounds over time.',
+    context: 'A team is growing a shared application across Java, Python, and JavaScript while keeping contribution patterns consistent.',
+    decisions: ['Keep functions focused on one behavior', 'Prefer explicit data flow over clever hidden coupling', 'Use types, validation, and tests to make assumptions visible'],
+    tradeoffs: 'The approach favors boring, readable code over premature abstraction. Shared patterns are introduced when repetition proves they are needed.',
+    metrics: [['Primary languages', 'Java / Python'], ['Review focus', 'Behavior first'], ['Goal', 'Low surprise']],
+  },
+  {
+    slug: 'cloud-devops', title: 'Cloud / DevOps', category: 'Operations', icon: Cloud,
+    description: 'Connect source control, repeatable delivery, infrastructure, and runtime environments into one dependable path.',
+    takeaway: 'Deployment should be a repeatable capability, not a heroic event.',
+    context: 'A small team needs to move a web application from local development to a monitored cloud environment without adding unnecessary platform complexity.',
+    decisions: ['Build and test every change through CI', 'Package the app with Docker for consistent environments', 'Use environment configuration and rollback-friendly releases'],
+    tradeoffs: 'A managed platform is preferred for the first release instead of Kubernetes. The team can add orchestration when operational evidence justifies it.',
+    metrics: [['Deploy path', 'Git to cloud'], ['Rollback goal', '< 10 min'], ['Runtime', 'Containerized']],
+  },
+  {
+    slug: 'observability', title: 'Observability', category: 'Operations', icon: Activity,
+    description: 'Use logs, metrics, traces, and meaningful alerts to understand what users and systems are experiencing.',
+    takeaway: 'You cannot improve behavior you cannot see.',
+    context: 'An API occasionally slows down under load, but infrastructure dashboards alone do not show which user workflow is affected.',
+    decisions: ['Track latency, errors, and throughput by endpoint', 'Connect request IDs across service and background-job logs', 'Alert on user-facing symptoms rather than every infrastructure fluctuation'],
+    tradeoffs: 'The first instrumentation pass focuses on critical journeys and useful context. Collecting every possible event would add cost without improving decisions.',
+    metrics: [['Core signals', 'Latency / errors'], ['Trace context', 'Request ID'], ['Alerting', 'Symptom based']],
+  },
+]
+
+export const systemDesignScenarios = [
+  { slug: 'lms-20k-users', title: 'LMS for 20,000 concurrent users', summary: 'Design course discovery, progress tracking, and notifications for a growing learning platform.', stack: 'React · Django · PostgreSQL · Redis', steps: ['Requirements', 'Architecture', 'Database', 'APIs', 'Scaling', 'Security', 'Trade-offs'] },
+  { slug: 'notification-system', title: 'Notification system', summary: 'Deliver email, push, and in-app notifications without slowing down the main request.', stack: 'Node.js · Queue · Workers · PostgreSQL', steps: ['Events', 'Queue', 'Workers', 'Retries', 'Templates', 'Delivery status'] },
+  { slug: 'hr-management-system', title: 'HR management system', summary: 'Model employees, teams, permissions, documents, and an auditable history of changes.', stack: 'React · REST API · MySQL', steps: ['Users', 'RBAC', 'Data model', 'API design', 'Audit log', 'Privacy'] },
+]
+
+export const engineeringNotes = [
+  { title: 'Designing for failure', tag: 'Reliability', text: 'What happens when a dependency is slow, unavailable, or returns an unexpected result?' },
+  { title: 'A calm review checklist', tag: 'Process', text: 'A short set of questions for reviewing behavior, boundaries, performance, and operational impact.' },
+  { title: 'From prototype to product', tag: 'Delivery', text: 'How to keep a promising first version flexible without turning every decision into infrastructure.' },
+]
