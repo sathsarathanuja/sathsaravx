@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Thanuja Sathsara — software engineer building reliable full-stack applications, backend systems, and APIs. Projects, engineering notes, and writing." />
     <meta name="author" content="Thanuja Sathsara" />
-    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#050505" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Thanuja Sathsara · Software Engineer" />
     <meta property="og:description" content="Reliable full-stack applications, backend systems, and APIs. Projects, engineering notes, and writing." />
@@ -15,8 +14,8 @@
     <title>Thanuja Sathsara · Software Engineer</title>
     <script>
       (() => {
-        let saved = 'system'
-        try { saved = localStorage.getItem('theme') || 'system' } catch {}
+        let saved = 'dark'
+        try { saved = localStorage.getItem('theme') || 'dark' } catch {}
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         const isDark = saved === 'dark' || (saved === 'system' && systemDark)
         document.documentElement.classList.toggle('dark', isDark)

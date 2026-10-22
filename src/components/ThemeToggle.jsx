@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Monitor, Moon, Sun } from 'lucide-react'
 
-const themes = ['system', 'light', 'dark']
+const themes = ['dark', 'light', 'system']
 const icons = { system: Monitor, light: Sun, dark: Moon }
 
 const readTheme = () => {
   try {
     const saved = window.localStorage.getItem('theme')
-    return themes.includes(saved) ? saved : 'system'
+    return themes.includes(saved) ? saved : 'dark'
   } catch {
-    return 'system'
+    return 'dark'
   }
 }
 
