@@ -11,15 +11,13 @@ import {
   Terminal,
   X,
 } from 'lucide-react'
-import { allProjects, blogPosts, isRealLink } from '../data/portfolioData'
+import { allProjects, blogPosts } from '../data/portfolioData'
 import { engineeringTopics } from '../data/engineeringData'
 import ThemeToggle from './ThemeToggle'
 import { GithubIcon, LinkedinIcon } from './BrandIcons'
 
 const githubUrl = import.meta.env.VITE_GITHUB_URL || 'https://github.com/Kudaliyanage-Sathsara'
 const linkedinUrl = import.meta.env.VITE_LINKEDIN_URL || 'https://www.linkedin.com/in/thanuja-sathsara-677a1a298/'
-const resumeUrl = import.meta.env.VITE_RESUME_URL || '#'
-const hasResume = isRealLink(resumeUrl)
 
 const engineeringLinks = [
   { label: 'System Design', hash: 'system-design' },
@@ -90,7 +88,7 @@ function CommandPalette({ onClose }) {
     ['Go to Projects', 'projects', () => navigate('/projects')],
     ['Go to Experience', 'experience', () => navigate('/experience')],
     ['Go to Blog', 'blog', () => navigate('/blog')],
-    ...(hasResume ? [['View Resume', 'resume', () => window.open(resumeUrl, '_blank', 'noopener,noreferrer')]] : []),
+    ['View Resume', 'resume', () => navigate('/resume')],
     ['GitHub', 'github', () => window.open(githubUrl, '_blank', 'noopener,noreferrer')],
     ['LinkedIn', 'linkedin', () => window.open(linkedinUrl, '_blank', 'noopener,noreferrer')],
     ['Contact', 'contact', () => navigate('/contact')],
@@ -197,12 +195,12 @@ export default function Navbar() {
             <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn"><LinkedinIcon size={15} /></a>
             <ThemeToggle />
             <Link to="/contact" className="contact-cta" onClick={closeMenus}>Let's talk <ArrowRight size={14} /></Link>
-            {hasResume && <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="resume-link" aria-label="Download resume"><ArrowDownToLine size={15} /> <span>Resume</span></a>}
+            <Link to="/resume" className="resume-link" aria-label="View resume" onClick={closeMenus}><ArrowDownToLine size={15} /> <span>Resume</span></Link>
             <button type="button" className="navbar-icon-button mobile-menu-button" aria-controls="mobile-navigation" aria-expanded={mobileOpen} aria-label={mobileOpen ? 'Close menu' : 'Open menu'} onClick={() => setMobileOpen((value) => !value)}>{mobileOpen ? <X size={20} /> : <Menu size={20} />}</button>
           </div>
         </div>
       </header>
-      {mobileOpen && <div className="mobile-panel" id="mobile-navigation"><div className="mobile-panel-links">{[...mainLinks.slice(0, -1), { label: 'Blog', to: '/blog' }, mainLinks.at(-1)].map((item) => <Link key={item.label} to={item.to} onClick={closeMenus}>{item.label}<ArrowRight size={15} /></Link>)}<span className="mobile-divider" /><a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub <ExternalLink size={14} /></a><a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn <ExternalLink size={14} /></a>{hasResume && <a href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume <ArrowDownToLine size={14} /></a>}</div></div>}
+      {mobileOpen && <div className="mobile-panel" id="mobile-navigation"><div className="mobile-panel-links">{[...mainLinks.slice(0, -1), { label: 'Blog', to: '/blog' }, mainLinks.at(-1)].map((item) => <Link key={item.label} to={item.to} onClick={closeMenus}>{item.label}<ArrowRight size={15} /></Link>)}<span className="mobile-divider" /><a href={githubUrl} target="_blank" rel="noopener noreferrer">GitHub <ExternalLink size={14} /></a><a href={linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn <ExternalLink size={14} /></a><Link to="/resume" onClick={closeMenus}>Resume <ArrowDownToLine size={14} /></Link></div></div>}
       <button type="button" className="command-launcher" onClick={() => setPaletteOpen(true)} aria-label="Open command palette"><Command size={14} /><kbd>⌘K</kbd></button>
       {paletteOpen && <CommandPalette onClose={() => setPaletteOpen(false)} />}
     </>

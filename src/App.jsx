@@ -15,6 +15,7 @@ const Skills = lazy(() => import('./pages/Skills'))
 const Engineering = lazy(() => import('./pages/Engineering'))
 const EngineeringTopic = lazy(() => import('./pages/EngineeringTopic'))
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const Resume = lazy(() => import('./pages/Resume'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const siteName = 'Thanuja Sathsara'
@@ -27,6 +28,7 @@ const pageTitles = {
   engineering: 'Engineering',
   blog: 'Writing',
   contact: 'Contact',
+  resume: 'Resume',
 }
 
 function AnimatedRoutes() {
@@ -53,6 +55,7 @@ function AnimatedRoutes() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
